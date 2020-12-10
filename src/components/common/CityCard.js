@@ -2,9 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import { cityToCompare, removeCityFromCompare } from '../../state/actions'
 import { formatLongNum, formatCurrency } from '../../helper/formatNumbers'
-import {addFavorite, removeFavorite} from '../../state/actions/userActions'
-
-
+import { addFavorite, removeFavorite } from '../../state/actions/userActions'
 
 import {
   HeartOutlined,
@@ -16,14 +14,11 @@ import {
 
 const CityCard = props => {
   const [isFavorite, setFavorite] = useState(false)
-  
-  
   const toggleFavorite = e => {
     e.stopPropagation()
     setFavorite(!isFavorite)
 
-    if (isFavorite === true) {
-      debugger
+    if (props.fave === true) {
       props.removeFavorite(props.city.cityId)
     } else {
       props.addFavorite(props.city.cityId)
@@ -49,7 +44,7 @@ const CityCard = props => {
           <h3 className="city-name">
             {props.city.cityName}, {props.city.stateCode}
           </h3>
-          {isFavorite ? (
+          {props.fave === true || isFavorite === true ? (
             <HeartFilled className="toggleFavorite" onClick={toggleFavorite} />
           ) : (
             <HeartOutlined
@@ -57,6 +52,50 @@ const CityCard = props => {
               onClick={toggleFavorite}
             />
           )}
+        </div>
+        <div className="city-attributes">
+          <div className="attribute">
+            <p className="attribute-title">Population: </p>{' '}
+            <p className="attribute-stat">
+              {formatLongNum(props.city.population)}
+            </p>
+          </div>
+          <div className="attribute">
+            <p className="attribute-title">Rent: </p>
+            <p className="attribute-stat">{formatCurrency(props.city.rent)}</p>
+          </div>
+          <div className="attribute">
+            <p className="attribute-title">House Cost: </p>{' '}
+            <p className="attribute-stat">
+              {formatCurrency(props.city.averageHomeCost)}
+            </p>
+          </div>
+          <div className="attribute">
+            <p className="attribute-title">Cost of Living Index: </p>{' '}
+            <p className="attribute-stat">{props.city.costOfLivingIndex}</p>
+          </div>
+        </div>
+      </div>
+    )
+  } else if (props.favorite === true) {
+    return (
+      <div
+        style={{
+          backgroundImage: `url("${props.city.imageUrl}")`,
+        }}
+        className="city-card"
+      >
+        <div className="city-card-header">
+          <h3 className="city-name">
+            {props.city.cityName}, {props.city.stateCode}
+          </h3>
+          <HeartFilled
+            className="toggleFavorite"
+            onClick={evt => {
+              evt.preventDefault()
+              props.removeFavorite(props.city.cityId)
+            }}
+          />
         </div>
         <div className="city-attributes">
           <div className="attribute">
@@ -102,7 +141,7 @@ const CityCard = props => {
           <h3 className="city-name">
             {props.city.cityName}, {props.city.stateCode}
           </h3>
-          {isFavorite ? (
+          {props.fave === true || isFavorite === true ? (
             <HeartFilled className="toggleFavorite" onClick={toggleFavorite} />
           ) : (
             <HeartOutlined

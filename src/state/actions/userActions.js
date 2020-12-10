@@ -13,20 +13,27 @@ export const addFavorite = cityId => dispatch => {
   axios
     .post(`https://labs-28-citrics-b.herokuapp.com/cities/favorite/${cityId}`)
     .then(res => {
-      dispatch({ type: ADD_FAVORITE_SUCCESS, payload: res.data })
+      axios
+        .get(`https://labs-28-citrics-b.herokuapp.com/users/user/1`)
+        .then(res => {
+          dispatch({ type: ADD_FAVORITE_SUCCESS, payload: res.data })
+        })
     })
     .catch(err => {
       dispatch({ type: ADD_FAVORITE_FAILURE, payload: err.message })
     })
 }
 
-
 export const removeFavorite = cityId => dispatch => {
   dispatch({ type: REMOVE_FAVORITE_START })
   axios
     .delete(`https://labs-28-citrics-b.herokuapp.com/cities/favorite/${cityId}`)
     .then(res => {
-      dispatch({ type: REMOVE_FAVORITE_SUCCESS, payload: res.data })
+      axios
+        .get(`https://labs-28-citrics-b.herokuapp.com/users/user/1`)
+        .then(res => {
+          dispatch({ type: REMOVE_FAVORITE_SUCCESS, payload: res.data })
+        })
     })
     .catch(err => {
       dispatch({ type: REMOVE_FAVORITE_FAILURE, payload: err.message })

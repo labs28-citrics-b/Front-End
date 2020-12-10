@@ -3,7 +3,6 @@ import { connect } from 'react-redux'
 import SearchBar from '../common/SearchBar'
 import CityCard from '../common/CityCard'
 import Title from '../common/Title'
-import { getCities } from '../../state/actions'
 import { getCLIArray } from '../../helper/dataProperties'
 import Loader from 'react-loader-spinner'
 
@@ -18,14 +17,10 @@ const initialState = {
 }
 
 const Home = props => {
-  useEffect(() => {
-    props.getCities()
-  }, [])
-
   const [state, setState] = useState(initialState)
   const [comparisons, setComparisons] = useState([])
+  const [faves, setFaves] = useState([])
   // const [breakpoints, setBreakpoints] = useState([])
-
   // useEffect(() => {
   //   setBreakpoints(getCLIArray())
   // }, [])
@@ -38,11 +33,19 @@ const Home = props => {
   }
 
   useEffect(() => {
+    var faveCities = []
+    props.favoriteCities.forEach(city => {
+      faveCities.push(city.city.cityId)
+    })
+    setFaves(faveCities)
+  }, [props.favoriteCities])
+
+  useEffect(() => {
     var compareIds = []
     props.comparingCities.forEach(city => {
       compareIds.push(city.cityId)
-      setComparisons(compareIds)
     })
+    setComparisons(compareIds)
   }, [props.comparingCities])
 
   props.cities.sort()
@@ -61,30 +64,33 @@ const Home = props => {
             width={100}
             timeout={5000} //5 secs
           />
+        ) : !props.isloading && props.cities.length > 0 ? (
+          props.cities
+            .filter(city => {
+              return (
+                !comparisons.includes(city.cityId) &&
+                city.population >= state.minPopulation &&
+                city.population <= state.maxPopulation &&
+                city.cityName
+                  .toLowerCase()
+                  .includes(state.searchValue.toLowerCase()) &&
+                city.rent >= state.minRent &&
+                city.rent <= state.maxRent &&
+                city.averageHomeCost >= state.minHouseCost &&
+                city.averageHomeCost <= state.maxHouseCost
+              )
+            })
+            .map(city => {
+              return (
+                <CityCard
+                  key={city.cityId}
+                  city={city}
+                  compare={false}
+                  fave={faves.includes(city.cityId) ? true : false}
+                />
+              )
+            })
         ) : null}
-
-        {!props.isloading && props.cities.length > 0
-          ? props.cities
-              .filter(city => {
-                return (
-                  !comparisons.includes(city.cityId) &&
-                  city.population >= state.minPopulation &&
-                  city.population <= state.maxPopulation &&
-                  city.cityName
-                    .toLowerCase()
-                    .includes(state.searchValue.toLowerCase()) &&
-                  city.rent >= state.minRent &&
-                  city.rent <= state.maxRent &&
-                  city.averageHomeCost >= state.minHouseCost &&
-                  city.averageHomeCost <= state.maxHouseCost
-                )
-              })
-              .map(city => {
-                return (
-                  <CityCard key={city.cityId} city={city} compare={false} />
-                )
-              })
-          : null}
       </div>
     </section>
   )
@@ -95,8 +101,8 @@ const mapStateToProps = state => {
     cities: state.cities,
     comparingCities: state.comparingCities,
     isLoading: state.isLoading,
-    // favorites: state.userPreferences.favorites,
+    favoriteCities: state.user.favoriteCities,
   }
 }
 
-export default connect(mapStateToProps, { getCities })(Home)
+export default connect(mapStateToProps, {})(Home)

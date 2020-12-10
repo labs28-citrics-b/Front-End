@@ -60,8 +60,17 @@ border-top: 1px solid #05386B;
 
 const FooterBar = props => {
   const [compareBTNDisable, setCompareBTNDisable] = useState(false)
+  const [faves, setFaves] = useState([])
 
   let location = useLocation()
+
+  useEffect(() => {
+    var faveCities = []
+    props.favoriteCities.forEach(city => {
+      faveCities.push(city.city.cityId)
+    })
+    setFaves(faveCities)
+  }, [props.favoriteCities])
 
   useEffect(() => {
     if (location.pathname.includes('compare')) {
@@ -114,6 +123,9 @@ const FooterBar = props => {
           <CityCard
             key={props.comparingCities[0].cityId}
             city={props.comparingCities[0]}
+            fave={
+              faves.includes(props.comparingCities[0].cityId) ? true : false
+            }
           />
         ) : (
           <ComparePlaceHolder />
@@ -122,6 +134,9 @@ const FooterBar = props => {
           <CityCard
             key={props.comparingCities[1].cityId}
             city={props.comparingCities[1]}
+            fave={
+              faves.includes(props.comparingCities[1].cityId) ? true : false
+            }
           />
         ) : (
           <ComparePlaceHolder />
@@ -130,6 +145,9 @@ const FooterBar = props => {
           <CityCard
             key={props.comparingCities[2].cityId}
             city={props.comparingCities[2]}
+            fave={
+              faves.includes(props.comparingCities[2].cityId) ? true : false
+            }
           />
         ) : (
           <ComparePlaceHolder />
@@ -142,6 +160,7 @@ const FooterBar = props => {
 const mapStateToProps = state => {
   return {
     comparingCities: state.comparingCities,
+    favoriteCities: state.user.favoriteCities,
   }
 }
 
