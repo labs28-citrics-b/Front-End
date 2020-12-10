@@ -14,16 +14,26 @@ import {
 
 const CityCard = props => {
   const [isFavorite, setFavorite] = useState(false)
+  const [comparisons, setComparisons] = useState([])
+
   const toggleFavorite = e => {
     e.stopPropagation()
-    setFavorite(!isFavorite)
-
     if (props.fave === true) {
+      setFavorite(false)
       props.removeFavorite(props.city.cityId)
     } else {
+      setFavorite(true)
       props.addFavorite(props.city.cityId)
     }
   }
+
+  useEffect(() => {
+    var compareIds = []
+    props.comparingCities.forEach(city => {
+      compareIds.push(city.cityId)
+    })
+    setComparisons(compareIds)
+  }, [props.comparingCities])
 
   if (props.compare === false) {
     return (
@@ -33,13 +43,15 @@ const CityCard = props => {
         }}
         className="city-card"
       >
-        <PlusOutlined
-          className="card-button add"
-          onClick={e => {
-            e.preventDefault()
-            props.cityToCompare(props.city.cityId)
-          }}
-        />
+        {comparisons.includes(props.city.cityId) ? null : (
+          <PlusOutlined
+            className="card-button add"
+            onClick={e => {
+              e.preventDefault()
+              props.cityToCompare(props.city.cityId)
+            }}
+          />
+        )}
         <div className="city-card-header">
           <h3 className="city-name">
             {props.city.cityName}, {props.city.stateCode}
@@ -85,6 +97,15 @@ const CityCard = props => {
         }}
         className="city-card"
       >
+        {comparisons.includes(props.city.cityId) ? null : (
+          <PlusOutlined
+            className="card-button add"
+            onClick={e => {
+              e.preventDefault()
+              props.cityToCompare(props.city.cityId)
+            }}
+          />
+        )}
         <div className="city-card-header">
           <h3 className="city-name">
             {props.city.cityName}, {props.city.stateCode}
