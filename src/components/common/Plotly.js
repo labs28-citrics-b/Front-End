@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Plot from 'react-plotly.js'
 
 import {
@@ -23,9 +23,6 @@ const icons = {
 const Plotly = props => {
   const { graphLabel, data } = props
   const [graphTypeState, setGraphTypeState] = useState('bar')
-  // const theme = useSelector(state => state.theme);
-  // const cardHeight = 64 * data.length;
-  // const sty = styles(display, theme);
 
   const relativeProperty = () => {
     switch (graphLabel) {
@@ -48,14 +45,20 @@ const Plotly = props => {
     }
   }
 
-  const graphTypeHandler = () => {
+  useEffect(() => {
     if (graphTypeState === 'bar') {
-      setGraphTypeState('line')
+      document.querySelector('.averageBtn').style.backgroundColor = '#05386B'
+      document.querySelector('.averageBtn').style.color = 'white'
+      document.querySelector('.historicalBtn').style.backgroundColor = '#5BDB95'
+      document.querySelector('.historicalBtn').style.color = 'black'
     }
-    if (graphTypeState === 'line') {
-      setGraphTypeState('bar')
+    if (graphTypeState === 'scatter') {
+      document.querySelector('.historicalBtn').style.backgroundColor = '#05386B'
+      document.querySelector('.historicalBtn').style.color = 'white'
+      document.querySelector('.averageBtn').style.backgroundColor = '#5BDB95'
+      document.querySelector('.averageBtn').style.color = 'black'
     }
-  }
+  }, [graphTypeState])
 
   const relativePropertyLineGraph = {
     historicalWeather: {
@@ -79,15 +82,33 @@ const Plotly = props => {
   return (
     <div className="card">
       <div className="cardInfo">
-        {icons[graphLabel]}
-        <h3 className="plotlyName">{graphLabel}</h3>
-        <div className="antdSwitch">
-          <Switch
-            checkedChildren="Historical"
-            size="small"
-            onChange={graphTypeHandler}
-            disabled={data.length === 0 ? true : false}
-          />
+        <h3 className="plotlyName">
+          {' '}
+          {icons[graphLabel]} {graphLabel}
+        </h3>
+        <div className="historicalAveBar">
+          <button
+            className="averageBtn"
+            onClick={evt => {
+              evt.preventDefault()
+              if (graphTypeState === 'line') {
+                setGraphTypeState('bar')
+              }
+            }}
+          >
+            Average
+          </button>
+          <button
+            className="historicalBtn"
+            onClick={evt => {
+              evt.preventDefault()
+              if (graphTypeState === 'bar') {
+                setGraphTypeState('line')
+              }
+            }}
+          >
+            Historical
+          </button>
         </div>
       </div>
 
