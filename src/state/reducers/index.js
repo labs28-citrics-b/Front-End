@@ -76,7 +76,7 @@ export default function reducer(state = initialApplicationState, action) {
       return {
         ...state,
         comparingCities: state.comparingCities.filter(city => {
-          return city.cityId != action.payload
+          return city.cityId !== action.payload
         }),
       }
     case GET_USER_START:
@@ -109,9 +109,15 @@ export default function reducer(state = initialApplicationState, action) {
       return { ...state, favoriteLoading: true, errorMessage: null }
 
     case REMOVE_FAVORITE_SUCCESS:
+      console.log(state.user.favoriteCities, state.user, 'hello')
       return {
         ...state,
-        user: action.payload,
+        user: {
+          ...state.user,
+          favoriteCities: state.user.favoriteCities.filter(city => {
+            return city.city.cityId !== action.payload
+          }),
+        },
         favoriteLoading: false,
         errorMessage: null,
       }
