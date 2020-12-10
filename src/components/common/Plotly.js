@@ -8,9 +8,6 @@ import {
   DollarCircleOutlined,
 } from '@ant-design/icons'
 
-import { Switch } from 'antd'
-// import { PlotlyCard } from '../../../archive/src/components/common';
-
 const icons = {
   Population: <TeamOutlined style={{ fontSize: '1.5rem' }} />,
   'Average Household Income': (
@@ -52,7 +49,7 @@ const Plotly = props => {
       document.querySelector('.historicalBtn').style.backgroundColor = '#5BDB95'
       document.querySelector('.historicalBtn').style.color = 'black'
     }
-    if (graphTypeState === 'scatter') {
+    if (graphTypeState === 'line') {
       document.querySelector('.historicalBtn').style.backgroundColor = '#05386B'
       document.querySelector('.historicalBtn').style.color = 'white'
       document.querySelector('.averageBtn').style.backgroundColor = '#5BDB95'
@@ -130,7 +127,7 @@ const Plotly = props => {
                     ]
                   }),
                   type: graphTypeState,
-                  mode: 'lines+points',
+                  mode: 'lines+markers',
                   marker: {
                     color: citydata.color,
                   },
