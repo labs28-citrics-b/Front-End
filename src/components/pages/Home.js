@@ -33,9 +33,6 @@ const Home = props => {
   }
 
   useEffect(() => {
-    console.log(props.favoriteCities)
-    console.log(props.user)
-    console.log(props.state)
     var faveCities = []
     props.favoriteCities.forEach(city => {
       faveCities.push(city.city.cityId)
@@ -105,8 +102,6 @@ const mapStateToProps = state => {
     comparingCities: state.comparingCities,
     isLoading: state.isLoading,
     favoriteCities: state.user.favoriteCities,
-    user: state.user,
-    state: state,
   }
 }
 
