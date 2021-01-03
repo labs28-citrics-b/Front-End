@@ -7,6 +7,7 @@ import PopulationSelect from './PopulationSelect'
 import HouseCostSelect from './HouseCostSelect'
 import RentSelect from './RentSelect'
 import { getUserData } from '../../state/actions/index.js'
+import {saveUserPreferences} from '../../state/actions/userActions'
 
 const StyledSearch = Styled.div`
 display: flex;
@@ -77,6 +78,7 @@ width: 75%;
 `
 
 const SearchBar = props => {
+  console.log(props.initialState);
   const location = useLocation()
   const [open, setOpen] = useState(false)
   const { user } = props
@@ -87,10 +89,10 @@ const SearchBar = props => {
 
   const toggle = () => setOpen(!open)
   
-  const saveUserPreferences = e => {
+  /*saveUserPreferences = intialState => {
     e.stopPropagation()
     
-  }
+  }*/
 
   return (
     <StyledSearch className="search-area-container">
@@ -108,7 +110,7 @@ const SearchBar = props => {
           Filters
         </button>
 
-        <button id="user-preferences-button" onClick={() => saveUserPreferences()
+        <button id="user-preferences-button" onClick={() => props.saveUserPreferences(props.initialState)
           }>
           Save User Preferences
         </button>
@@ -162,10 +164,10 @@ const SearchBar = props => {
 
 const mapStateToProps = state => {
   return {
-    user: state.user,
+    
   }
 }
 
-export default connect(mapStateToProps, { getUserData })(SearchBar)
+export default connect(mapStateToProps, { getUserData, saveUserPreferences })(SearchBar)
 
 // Fixing git

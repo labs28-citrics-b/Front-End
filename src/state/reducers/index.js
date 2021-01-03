@@ -136,8 +136,15 @@ export default function reducer(state = initialApplicationState, action) {
     case SAVE_PREFERENCES_SUCCESS:
       return {
         ...state,
-        user: action.payload,
-        favoriteLoading: false,
+        user: {
+          ...state.user,
+          minPopulation: action.payload.minPopulation,
+          maxPopulation: action.payload.maxPopulation,
+          minRent: action.payload.minRent,
+          maxRent: action.payload.maxRent,
+          minHouseCost: action.payload.minHouseCost,
+          maxHouseCost: action.payload.maxHouseCost,
+        },
         errorMessage: null,
       }
     case SAVE_PREFERENCES_FAILURE:

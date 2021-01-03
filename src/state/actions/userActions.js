@@ -1,5 +1,7 @@
 import axios from 'axios'
 
+
+
 export const ADD_FAVORITE_START = 'ADD_FAVORITE_START'
 export const ADD_FAVORITE_SUCCESS = 'ADD_FAVORITE_SUCCESS'
 export const ADD_FAVORITE_FAILURE = 'ADD_FAVORITE_FAILURE'
@@ -41,13 +43,25 @@ export const removeFavorite = cityId => dispatch => {
     })
 }
 
-export const setUserPreferences = () => dispatch => {
+export const saveUserPreferences = initialState => dispatch => {
   console.log()
   dispatch({ type: SAVE_PREFERENCES_START })
   axios
-    .patch(`https://labs-28-citrics-b.herokuapp.com//users/user/1`)
+    .patch(`https://labs-28-citrics-b.herokuapp.com/users/user/1`,  {
+      minPopulation: initialState.minPopulation,
+      maxPopulation: initialState.maxPopulation,
+      minRent: initialState.minRent,
+      maxRent: initialState.maxRent,
+      minHouseCost: initialState.minHouseCost,
+      maxHouseCost: initialState.maxHouseCost},
+      {
+      headers: {
+          'Content-Type': 'application/json'
+      },
+      
+    })      
     .then(res => {
-      dispatch({ type: SAVE_PREFERENCES_SUCCESS, /*payload: userId*/ })
+      dispatch({ type: SAVE_PREFERENCES_SUCCESS, payload: initialState })
     })
     .catch(err => {
       dispatch({ type: SAVE_PREFERENCES_FAILURE, payload: err.message })
