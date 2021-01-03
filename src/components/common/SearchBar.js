@@ -49,6 +49,20 @@ align-items: center;
   }
 }
 
+#user-preferences-button {
+  width: 7rem;
+  height: 4rem;
+  background-color: #5bdb95;
+  border: none;
+  border-radius: 15px;
+  color: white; 
+  font-size: 1rem;
+  &:hover {
+    background-color: #05386B;
+    transition: 0.5s;
+  }
+}
+
 h2 {
   color: #5bdb95;
   font-size: 1.3rem;
@@ -89,10 +103,6 @@ const SearchBar = props => {
 
   const toggle = () => setOpen(!open)
   
-  /*saveUserPreferences = intialState => {
-    e.stopPropagation()
-    
-  }*/
 
   return (
     <StyledSearch className="search-area-container">
@@ -108,11 +118,6 @@ const SearchBar = props => {
 
         <button id="dd-btn" onClick={() => toggle()}>
           Filters
-        </button>
-
-        <button id="user-preferences-button" onClick={() => props.saveUserPreferences(props.initialState)
-          }>
-          Save User Preferences
         </button>
 
       </div>
@@ -156,6 +161,11 @@ const SearchBar = props => {
               maxName="maxHouseCost"
             />
           </section>
+          
+          <button id="user-preferences-button" onClick={() => props.saveUserPreferences(props.initialState)}>
+          Save Preferences
+          </button>
+
         </StyledFilterDiv>
       ) : null}
     </StyledSearch>
