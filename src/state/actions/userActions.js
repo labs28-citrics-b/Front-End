@@ -8,6 +8,10 @@ export const REMOVE_FAVORITE_START = 'REMOVE_FAVORITE_START'
 export const REMOVE_FAVORITE_SUCCESS = 'REMOVE_FAVORITE_SUCCESS'
 export const REMOVE_FAVORITE_FAILURE = 'REMOVE_FAVORITE_FAILURE'
 
+export const SAVE_PREFERENCES_START = 'SAVE_PREFERENCES_START'
+export const SAVE_PREFERENCES_SUCCESS = 'SAVE_PREFERENCES_SUCCESS'
+export const SAVE_PREFERENCES_FAILURE = 'SAVE_PREFERENCES_FAILURE'
+
 export const addFavorite = cityId => dispatch => {
   dispatch({ type: ADD_FAVORITE_START })
   axios
@@ -34,5 +38,18 @@ export const removeFavorite = cityId => dispatch => {
     })
     .catch(err => {
       dispatch({ type: REMOVE_FAVORITE_FAILURE, payload: err.message })
+    })
+}
+
+export const setUserPreferences = () => dispatch => {
+  console.log()
+  dispatch({ type: SAVE_PREFERENCES_START })
+  axios
+    .patch(`https://labs-28-citrics-b.herokuapp.com//users/user/1`)
+    .then(res => {
+      dispatch({ type: SAVE_PREFERENCES_SUCCESS, /*payload: userId*/ })
+    })
+    .catch(err => {
+      dispatch({ type: SAVE_PREFERENCES_FAILURE, payload: err.message })
     })
 }

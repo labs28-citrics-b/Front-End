@@ -6,6 +6,7 @@ import { useLocation } from 'react-router-dom'
 import PopulationSelect from './PopulationSelect'
 import HouseCostSelect from './HouseCostSelect'
 import RentSelect from './RentSelect'
+import { getUserData } from '../../state/actions/index.js'
 
 const StyledSearch = Styled.div`
 display: flex;
@@ -78,13 +79,18 @@ width: 75%;
 const SearchBar = props => {
   const location = useLocation()
   const [open, setOpen] = useState(false)
-  //const { user } = props
+  const { user } = props
 
   useEffect(() => {
     document.querySelector('#searchBar').focus()
   }, [location])
 
   const toggle = () => setOpen(!open)
+  
+  const saveUserPreferences = e => {
+    e.stopPropagation()
+    
+  }
 
   return (
     <StyledSearch className="search-area-container">
@@ -101,6 +107,12 @@ const SearchBar = props => {
         <button id="dd-btn" onClick={() => toggle()}>
           Filters
         </button>
+
+        <button id="user-preferences-button" onClick={() => saveUserPreferences()
+          }>
+          Save User Preferences
+        </button>
+
       </div>
       {open ? (
         <StyledFilterDiv>
@@ -149,9 +161,11 @@ const SearchBar = props => {
 }
 
 const mapStateToProps = state => {
-  return {}
+  return {
+    user: state.user,
+  }
 }
 
-export default connect(mapStateToProps, null)(SearchBar)
+export default connect(mapStateToProps, { getUserData })(SearchBar)
 
 // Fixing git
