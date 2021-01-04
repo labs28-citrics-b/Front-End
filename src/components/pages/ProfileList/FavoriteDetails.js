@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 //import { useParams, useHistory } from "react-router-dom";
-//import { Button, Form, Label, Input, Row, Col } from 'reactstrap';
-import { CardBody, CardTitle, CardText, CardImg } from 'reactstrap'
+import { CardBody } from 'reactstrap'
 import CityCard from '../../common/CityCard'
 
 export default function FavoriteDetails(props) {
@@ -62,7 +61,7 @@ export default function FavoriteDetails(props) {
 
         {/*{!edit && <Button onClick={() => setEdit(true)}>Edit Post</Button>}
       {edit && (
-        
+
         <Form className='editForm' onSubmit={handleSubmit}>
           <div className='edit'>
             <Label>Name</Label>
@@ -76,7 +75,7 @@ export default function FavoriteDetails(props) {
           <div className='edit'>
 
             <Label>Image Url</Label>
-          
+
             <Input
               name="photo_url"
               value={post && post.photo_url}

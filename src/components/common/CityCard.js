@@ -7,7 +7,6 @@ import { addFavorite, removeFavorite } from '../../state/actions/userActions'
 import {
   HeartOutlined,
   HeartFilled,
-  InfoCircleOutlined,
   PlusOutlined,
   CloseOutlined,
 } from '@ant-design/icons'
