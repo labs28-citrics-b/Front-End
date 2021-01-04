@@ -5,7 +5,6 @@ import CityCard from '../../common/CityCard'
 
 export default function FavoriteDetails(props) {
   const { user } = props
-  const { city } = props
   //const [post, setPost] = useState();
   //const [edit, setEdit] = useState(false);
   //const { id } = useParams()

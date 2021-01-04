@@ -25,11 +25,12 @@ const useStyles = makeStyles(theme => ({
 
 export default function RentSelect(props) {
   const classes = useStyles()
-  const [age, setAge] = React.useState('')
+  // TODO unused, remove?
+  // const [age, setAge] = React.useState('')
 
-  const handleChange = event => {
-    setAge(event.target.value)
-  }
+  // const handleChange = event => {
+  //   setAge(event.target.value)
+  // }
 
   return (
     <StyledRent>

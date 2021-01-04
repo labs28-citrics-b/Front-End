@@ -7,7 +7,7 @@ import PopulationSelect from './PopulationSelect'
 import HouseCostSelect from './HouseCostSelect'
 import RentSelect from './RentSelect'
 import { getUserData } from '../../state/actions/index.js'
-import {saveUserPreferences} from '../../state/actions/userActions'
+import { saveUserPreferences } from '../../state/actions/userActions'
 
 const StyledSearch = Styled.div`
 display: flex;
@@ -41,7 +41,7 @@ align-items: center;
   background-color: #5bdb95;
   border: none;
   border-radius: 15px;
-  color: white; 
+  color: white;
   font-size: 1rem;
   &:hover {
     background-color: #05386B;
@@ -55,7 +55,7 @@ align-items: center;
   background-color: #5bdb95;
   border: none;
   border-radius: 15px;
-  color: white; 
+  color: white;
   font-size: 1rem;
   &:hover {
     background-color: #05386B;
@@ -92,17 +92,15 @@ width: 75%;
 `
 
 const SearchBar = props => {
-  console.log(props.initialState);
+  console.log(props.initialState)
   const location = useLocation()
   const [open, setOpen] = useState(false)
-  const { user } = props
 
   useEffect(() => {
     document.querySelector('#searchBar').focus()
   }, [location])
 
   const toggle = () => setOpen(!open)
-  
 
   return (
     <StyledSearch className="search-area-container">
@@ -119,7 +117,6 @@ const SearchBar = props => {
         <button id="dd-btn" onClick={() => toggle()}>
           Filters
         </button>
-
       </div>
       {open ? (
         <StyledFilterDiv>
@@ -161,11 +158,13 @@ const SearchBar = props => {
               maxName="maxHouseCost"
             />
           </section>
-          
-          <button id="user-preferences-button" onClick={() => props.saveUserPreferences(props.initialState)}>
-          Save Preferences
-          </button>
 
+          <button
+            id="user-preferences-button"
+            onClick={() => props.saveUserPreferences(props.initialState)}
+          >
+            Save Preferences
+          </button>
         </StyledFilterDiv>
       ) : null}
     </StyledSearch>
@@ -173,11 +172,11 @@ const SearchBar = props => {
 }
 
 const mapStateToProps = state => {
-  return {
-    
-  }
+  return {}
 }
 
-export default connect(mapStateToProps, { getUserData, saveUserPreferences })(SearchBar)
+export default connect(mapStateToProps, { getUserData, saveUserPreferences })(
+  SearchBar
+)
 
 // Fixing git

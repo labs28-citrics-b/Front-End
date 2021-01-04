@@ -24,10 +24,11 @@ const useStyles = makeStyles(theme => ({
 }))
 export default function HouseCostSelect(props) {
   const classes = useStyles()
-  const [age, setAge] = React.useState('')
-  const handleChange = event => {
-    setAge(event.target.value)
-  }
+  // TODO: Unused, remove?
+  // const [age, setAge] = React.useState('')
+  // const handleChange = event => {
+  //   setAge(event.target.value)
+  // }
   return (
     <StyledHouse>
       <FormControl variant="filled" className={classes.formControl}>
