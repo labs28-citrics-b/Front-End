@@ -100,28 +100,7 @@ function UserProfile(props) {
 
       </div>
 
-      {/*<div
-        class="card"
-        style={{
-          width: '30%',
-          backgroundColor: '#5BDB95',
-          alignItems: 'center',
-          color: '#05386B',
-          borderColor: '#05386B',
-          fontFamily: 'Tajawal, sans-serif',
-          marginTop: '5%',
-          marginRight: '5%',
-        }}
-      >
-        <CardBody alignItems="center">
-          <CardTitle tag="h2"> Comparison History </CardTitle>
-          <CardText>
-            {' '}
-            {' '}
-          </CardText>
-      </CardBody>
-      </div>*/}
-
+      
       <div
         class="card"
         style={{
