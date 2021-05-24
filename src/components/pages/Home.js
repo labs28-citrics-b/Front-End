@@ -96,6 +96,8 @@ const Home = props => {
   )
 }
 
+
+
 const mapStateToProps = state => {
   return {
     cities: state.cities,

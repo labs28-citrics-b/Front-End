@@ -19,6 +19,12 @@ import {
   REMOVE_FAVORITE_FAILURE,
 } from '../actions/userActions'
 
+import {
+  SAVE_PREFERENCES_START,
+  SAVE_PREFERENCES_SUCCESS,
+  SAVE_PREFERENCES_FAILURE,
+} from '../actions/userActions'
+
 const initialApplicationState = {
   isLoading: false,
   favoriteLoading: false,
@@ -122,6 +128,26 @@ export default function reducer(state = initialApplicationState, action) {
         errorMessage: null,
       }
     case REMOVE_FAVORITE_FAILURE:
+      return { ...state, isLoading: false, errorMessage: action.payload }
+
+    case SAVE_PREFERENCES_START:
+      return { ...state, favoriteLoading: true, errorMessage: null }
+  
+    case SAVE_PREFERENCES_SUCCESS:
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          minPopulation: action.payload.minPopulation,
+          maxPopulation: action.payload.maxPopulation,
+          minRent: action.payload.minRent,
+          maxRent: action.payload.maxRent,
+          minHouseCost: action.payload.minHouseCost,
+          maxHouseCost: action.payload.maxHouseCost,
+        },
+        errorMessage: null,
+      }
+    case SAVE_PREFERENCES_FAILURE:
       return { ...state, isLoading: false, errorMessage: action.payload }
 
     default:
