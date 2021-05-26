@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import UserPreferencesList from './UserPreferencesList'
 import FavoritesList from './FavoritesList'
 
+//state being passed down through props from RenderProfileListPage
 function UserProfile(props) {
   const { user } = props
   if (user == null) {
@@ -67,6 +68,7 @@ function UserProfile(props) {
           borderRadius: "1rem"
         }}
       >
+        {/* using inline CSS to style components*/}
         <CardBody alignItems="center">
 
           <CardTitle 
@@ -135,6 +137,11 @@ function UserProfile(props) {
     </div>
   )
 }
+
+//To tell connect which pieces of our state we want to bring into this component
+//It takes in sstate as a parameter, returns object where properties can be passed to props
+//We have access to all our state via the state argument but the component onlt receives 
+//the pieces of state that we turn out of mapStateToProps
 const mapStateToProps = state => {
   console.log(state)
   return {
@@ -142,4 +149,8 @@ const mapStateToProps = state => {
   }
 }
 
+
+//function currying and export the component
+//when we use action creators in our connected components, we first import the action creator
+//Then we pass the action creator into the connect function
 export default connect(mapStateToProps, { getUserData })(UserProfile)

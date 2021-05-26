@@ -2,6 +2,8 @@ import React, { useEffect } from 'react'
 import UserPreferencesEdit from './UserPreferencesEdit'
 import { getUserData } from '../../../state/actions/index.js'
 import { connect } from 'react-redux'
+
+//state passed down through props from Profile.js
 const UserPreferencesList = props => {
   useEffect(() => {
     props.getUserData()

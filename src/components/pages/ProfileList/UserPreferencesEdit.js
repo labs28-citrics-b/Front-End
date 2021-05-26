@@ -4,7 +4,7 @@ import { axiosWithAuth } from "../../../api/axiosWithAuth.js";
 import { Button, Form, Label, Input, Row, Col } from 'reactstrap';
 import { CardBody, CardTitle, CardText, CardImg } from 'reactstrap'
 
-
+//props passed down from UserPreferencesList.js
 //this displays the user's preferences
 export default function UserPreferencesEdit(props) {
   const { user } = props

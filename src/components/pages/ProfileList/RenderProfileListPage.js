@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import UserProfile from './Profile';
 
+
+//state being passed down through props from ProfileListContainer
 const RenderProfileListPage = props => (
   <div>
     <p>
